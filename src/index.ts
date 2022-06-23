@@ -5,6 +5,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
+import { renderFullPage } from './page.js';
 
 const baseDir = process.argv[2];
 const indexFile = path.join(baseDir, 'index.md');
@@ -18,4 +19,12 @@ const markdown = unified()
 
 const vfile = await markdown.process(content);
 
-console.info(vfile.value);
+console.info(
+  renderFullPage(
+    vfile.value.toString(),
+    {
+      lang: 'cs',
+      title: 'Czechisite',
+    }
+  )
+);
